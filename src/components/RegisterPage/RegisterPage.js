@@ -1,12 +1,15 @@
 import React from 'react'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import firebase from '../../firebase'
+import md5 from 'md5'
 
 export default function RegisterPage() {
 
     const { register, watch, errors, handleSubmit } = useForm({mode: 'onChange'})
     const [errorFromSubmit, setErrorFromSubmit] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const password = useRef()
     password.current = watch('password')
@@ -14,11 +17,25 @@ export default function RegisterPage() {
 
     const onSubmit = async (data) => {
         try{
+            setLoading(true)
             let createdUser = await firebase
             .auth()
             .createUserWithEmailAndPassword(data.email, data.password)
+
+            await createdUser.user.updateProfile({
+                displayName: data.name,
+                photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`
+            })
+
+            await firebase.database().ref('users').child(createdUser.user.uid).set({
+                displayName: createdUser.user.displayName,
+                photoURL: createdUser.user.photoURL
+            })
+
+            setLoading(false)
         } catch(error) {
             setErrorFromSubmit(error.message)
+            setLoading(false)
             setTimeout(() => {
                 setErrorFromSubmit('')
             }, 5000);
@@ -68,7 +85,10 @@ export default function RegisterPage() {
                 />
                 {errors.password_confirm && <p>The password is not correct.</p>}
 
-                <input type="submit" />
+                {errorFromSubmit && <p>{errorFromSubmit}</p>}
+
+                <input type="submit" disabled={loading} />
+                <Link style={{color: 'gray', textDecoration:'none'}} to="login">이미 아이디가 있다면..</Link>
             </form>
         </div>
     )

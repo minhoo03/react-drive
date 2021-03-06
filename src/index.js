@@ -4,6 +4,10 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import {
+  BrowserRouter as Router,
+} from "react-router-dom";
+
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise'
@@ -20,7 +24,10 @@ ReactDOM.render(
           window.__REDUX_DEVTOOLS_EXTENSION__&&
           window.__REDUX_DEVTOOLS_EXTENSION__()
         )}>
-          <App />
+          {/* App 내부에서 switch를 감싸던 Router를 App을 감싸게 만듦 */}
+          <Router>
+            <App />
+          </Router>
       </Provider>
     </React.StrictMode>,
   
