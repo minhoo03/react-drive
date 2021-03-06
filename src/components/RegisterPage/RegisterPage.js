@@ -1,14 +1,29 @@
 import React from 'react'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import firebase from '../../firebase'
 
 export default function RegisterPage() {
 
-    const { register, watch, errors } = useForm({mode: 'onChange'})
+    const { register, watch, errors, handleSubmit } = useForm({mode: 'onChange'})
+    const [errorFromSubmit, setErrorFromSubmit] = useState('')
 
     const password = useRef()
     password.current = watch('password')
     console.log(watch('email','name','password'))
+
+    const onSubmit = async (data) => {
+        try{
+            let createdUser = await firebase
+            .auth()
+            .createUserWithEmailAndPassword(data.email, data.password)
+        } catch(error) {
+            setErrorFromSubmit(error.message)
+            setTimeout(() => {
+                setErrorFromSubmit('')
+            }, 5000);
+        }
+    }
 
     return (
         <div className="auth_wrapper">
@@ -18,9 +33,7 @@ export default function RegisterPage() {
                 </h3>
             </div>
 
-            <form 
-            // onSubmit={handleSubmit(onSubmit)}
-            >
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <label>Email</label>
                 <input
                     name="email"
