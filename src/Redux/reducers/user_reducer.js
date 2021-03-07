@@ -1,4 +1,5 @@
 import {
+    CLEAR_USER,
     SET_USER
 } from '../actions/types'
 
@@ -15,6 +16,14 @@ export default function(state = initalUserState, action) {
                 currentUser: action.payload,
                 isLoading: false
             }
+
+        case CLEAR_USER:
+            return { 
+                ...state,
+                currentUser: null,
+                isLoading: false
+            }
+
         default:
             return state
     }

@@ -22,11 +22,14 @@ export default function RegisterPage() {
             .auth()
             .createUserWithEmailAndPassword(data.email, data.password)
 
+            firebase.auth().signOut()
+
             await createdUser.user.updateProfile({
                 displayName: data.name,
                 photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`
             })
 
+            // table: users / row: user.uid / column: user
             await firebase.database().ref('users').child(createdUser.user.uid).set({
                 displayName: createdUser.user.displayName,
                 photoURL: createdUser.user.photoURL

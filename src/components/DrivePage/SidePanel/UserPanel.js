@@ -1,27 +1,44 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { FaGoogleDrive } from 'react-icons/fa'
-import { Dropdown, Image, Container, Row, Col } from 'react-bootstrap'
+import { Dropdown, Image } from 'react-bootstrap'
+
+import firebase from '../../../firebase'
 
 export default function UserPanel() {
 
     const user = useSelector(state => state.user.currentUser)
 
+
+    const handleLogout = () => {
+        firebase.auth().signOut()
+    }
+
+
     return (
-        <div style={{display: 'flex', flexDirection:'column', padding:'1rem'}}>
-            <h4>
-                <FaGoogleDrive style={{marginBottom:'2px', color:'white'}} />{" "}React drive
-            </h4>
-            <div>
+        <div style={{
+            padding:'8px',
+            margin: '0 4px'
+        }}>
+            <h3 style={{ color: '#ffffff', marginBottom: '1rem'}}>
+                <FaGoogleDrive />{" "}Chat App
+            </h3>
+            
+            <div style={{display:'flex', marginBottom:'1rem'}}>
+                <Image src={user && user.photoURL} roundedCircle
+                style={{width:'30px', height:'30px', marginTop:'5px'}} />
+
                 <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic" style={{backgroundColor:'transparent', border:'none'}}>
-                        <Image src={user && user.photoURL} roundedCircle style={{ width: '30px', height:'30px', margin:'4px 8px' }} />
+                    <Dropdown.Toggle 
+                        id="dropdown-basic" 
+                        style={{background:'transparent', border:'0'}}
+                    >
                         {user && user.displayName}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                        <Dropdown.Item >프로필 사진 변경</Dropdown.Item>
+                        <Dropdown.Item onClick={handleLogout} >로그아웃</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>

@@ -5,7 +5,7 @@ import SidePanel from './SidePanel/SidePanel'
 export default function DrivePage() {
     return (
         <div style={{display: 'flex'}}>
-            <div>
+            <div style={{width:'300px'}}>
                 <SidePanel />
             </div>
             <div style={{width:'100%'}}>

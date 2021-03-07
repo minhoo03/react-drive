@@ -6,7 +6,8 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  setUser
+  setUser,
+  clearUser
 } from './Redux/actions/user_action'
 
 import DrivePage from './components/DrivePage/DrivePage'
@@ -32,6 +33,7 @@ function App(props) {
       } else {
         // not login
         history.push('/login')
+        dispatch(clearUser(user))
       }
     })
   }, [])
