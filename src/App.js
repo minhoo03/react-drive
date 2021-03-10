@@ -10,6 +10,10 @@ import {
   clearUser
 } from './Redux/actions/user_action'
 
+import {
+  setCurrentChatRoom
+} from './Redux/actions/drive_action'
+
 import DrivePage from './components/DrivePage/DrivePage'
 import RegisterPage from './components/RegisterPage/RegisterPage'
 import LoginPage from './components/LoginPage/LoginPage'
@@ -40,8 +44,8 @@ function App(props) {
 
   if(isLoading) {
     return (
-      <div>
-        ...loading
+      <div style={{display:'flex', justifyContent:'center', lineHeight:'50%', height:'100vh'}}>
+        <img src="https://www.vario-mobil.com/VNG/gfx/loading_white.gif" />
       </div>
     )
   } else {

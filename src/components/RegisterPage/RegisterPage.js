@@ -9,6 +9,7 @@ export default function RegisterPage() {
 
     const { register, watch, errors, handleSubmit } = useForm({mode: 'onChange'})
     const [errorFromSubmit, setErrorFromSubmit] = useState('')
+    const [DriveRoomsRef, setDriveRoomsRef] = useState(firebase.database().ref('myDriveRoom'))
     const [loading, setLoading] = useState(false)
 
     const password = useRef()
@@ -16,6 +17,7 @@ export default function RegisterPage() {
     console.log(watch('email','name','password'))
 
     const onSubmit = async (data) => {
+        
         try{
             setLoading(true)
             let createdUser = await firebase
@@ -34,6 +36,13 @@ export default function RegisterPage() {
                 displayName: createdUser.user.displayName,
                 photoURL: createdUser.user.photoURL
             })
+
+            const newDriveRoom = {
+                id: createdUser.user.uid,
+                name: '내'
+            }
+
+            await DriveRoomsRef.child(createdUser.user.uid).update(newDriveRoom)
 
             setLoading(false)
         } catch(error) {

@@ -1,5 +1,6 @@
 import React from 'react'
 import UserPanel from './UserPanel'
+import DriveRooms from './DriveRooms'
 
 export default function SidePanel() {
     return (
@@ -11,6 +12,7 @@ export default function SidePanel() {
             minWidth: '275px'
         }}>
             <UserPanel />
+            <DriveRooms />
         </div>
     )
 }

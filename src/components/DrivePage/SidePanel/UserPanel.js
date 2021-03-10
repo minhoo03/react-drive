@@ -62,8 +62,8 @@ export default function UserPanel() {
             padding:'16px',
             margin: '0 8px'
         }}>
-            <h3 style={{ color: '#ffffff', marginBottom: '1rem'}}>
-                <FaGoogleDrive />{" "}Chat App
+            <h3 style={{ color: '#ffffff', marginBottom: '1rem',}}>
+                <FaGoogleDrive style={{marginBottom:'8px'}} />{" "}드라이브
             </h3>
             
             <div style={{display:'flex', marginBottom:'1rem'}}>
