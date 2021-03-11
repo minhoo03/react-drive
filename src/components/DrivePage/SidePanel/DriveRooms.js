@@ -17,6 +17,7 @@ export class DriveRooms extends Component {
         show: false,
         name: '',
         DriveRoomsRef: firebase.database().ref('DriveRooms'),
+        myDriveRoomRef: firebase.database().ref('myDriveRoom'),
         DriveRooms: [],
         firstLoad: true,
         activeDriveRoomId: ''
@@ -49,6 +50,7 @@ export class DriveRooms extends Component {
     setfirstDriveRoom = () => {
         const { user } = this.props
             // const firstDriveRoom = this.state.DriveRooms[0]
+
             const firstDriveRoom = {
                 id: user.uid,
                 name: '내'

@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import UploadForm from './UploadForm'
+
 
 export class MainPanel extends Component {
+
     render() {
-
-        const { drive } = this.props
-
         return (
-            <div>
-                {drive.name}
+            <div style={{
+                padding:'8px',
+                margin:'0 8px'
+            }}>
+                <UploadForm drive={this.props.drive} user={this.props.user} />
             </div>
         )
     }
