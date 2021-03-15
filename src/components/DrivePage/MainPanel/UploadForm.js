@@ -12,16 +12,10 @@ export default function UploadForm({drive, user}) {
     // const drive = useSelector(state => state.drive.currentDriveRoom)
 
     const imageRef = useRef()
-    const fileRef = useRef()
 
 
     const handleImageRefClick = () => {
         imageRef.current.click()
-    }
-
-
-    const handleFileRefClick = () => {
-        fileRef.current.click()
     }
 
 
@@ -95,17 +89,15 @@ export default function UploadForm({drive, user}) {
                         id="dropdown-basic" 
                         style={{background:'transparent', border:'0', color: 'black', fontSize:'25px'}}
                     >
-                        {drive.name} 드라이브
+                        {drive && drive.name} 드라이브
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item onClick={handleImageRefClick} >이미지 업로드</Dropdown.Item>
-                        <Dropdown.Item onClick={handleFileRefClick} >파일 업로드</Dropdown.Item>
+                        <Dropdown.Item onClick={handleImageRefClick} >파일 업로드</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
 
-                <input accept="image/jpeg, image/png, image/gif, image/svg" type="file" style={{display:'none'}} ref={imageRef} onChange={handleUploadImage} />
-                <input accept=".psd, .js, .html, .css, .scss, .zip, .java, .kotlin, .ppt, .hwp, xxl" type="file" style={{display:'none'}} ref={fileRef} />
+                <input accept="image/jpeg, image/png, image/gif, image/svg, .psd, .js, .html, .css, .scss, .zip, .java, .kotlin, .ppt, .hwp, xxl, .txt" type="file" style={{display:'none'}} ref={imageRef} onChange={handleUploadImage} />
         </div>
     )
 }

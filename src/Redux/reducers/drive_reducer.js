@@ -3,7 +3,7 @@ import {
 } from '../actions/types'
 
 const initalDriveRoomState = {
-    currentDriveRoom: {name:''}
+    currentDriveRoom: null
 }
 
 export default function(state = initalDriveRoomState, action) {

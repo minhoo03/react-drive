@@ -6,7 +6,7 @@ import { setCurrentDriveRoom } from '../../../Redux/actions/drive_action'
 import { AiOutlineSmile } from 'react-icons/ai'
 import { HiShare } from 'react-icons/hi'
 import { IoMdPeople } from 'react-icons/io'
-import { FaPlus } from 'react-icons/fa'
+import { FaPlus, FaThinkPeaks } from 'react-icons/fa'
 
 import { Button, Modal, Form } from 'react-bootstrap'
 
@@ -20,7 +20,8 @@ export class DriveRooms extends Component {
         myDriveRoomRef: firebase.database().ref('myDriveRoom'),
         DriveRooms: [],
         firstLoad: true,
-        activeDriveRoomId: ''
+        activeDriveRoomId: '',
+        userUid: this.props.user.uid
     }
 
 
@@ -48,13 +49,14 @@ export class DriveRooms extends Component {
 
 
     setfirstDriveRoom = () => {
-        const { user } = this.props
+        
             // const firstDriveRoom = this.state.DriveRooms[0]
 
             const firstDriveRoom = {
-                id: user.uid,
+                id: this.state.userUid,
                 name: '내'
             }
+            
 
             if(this.state.firstLoad && this.state.DriveRooms.length > 0) {
                 this.props.dispatch(setCurrentDriveRoom(firstDriveRoom))

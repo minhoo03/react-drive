@@ -48,7 +48,7 @@ function App(props) {
         <img src="https://www.vario-mobil.com/VNG/gfx/loading_white.gif" />
       </div>
     )
-  } else {
+  }
     return (
       <Switch>
         <Route exact path="/" component={DrivePage} />
@@ -57,6 +57,6 @@ function App(props) {
       </Switch>
     );
   }
-}
+
 
 export default App;
