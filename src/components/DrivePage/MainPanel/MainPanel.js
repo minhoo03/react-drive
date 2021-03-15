@@ -6,7 +6,7 @@ import firebase from '../../../firebase'
 
 export class MainPanel extends Component {
 
-    
+
     state = {
         drives: [],
         driveRef: firebase.database().ref("driveMsg"),
@@ -24,8 +24,6 @@ export class MainPanel extends Component {
     addProps = async () => {
         // redux를 가져오기전 끝나버림.
         const {drive} = this.props
-        console.log('drive',drive)
-        console.log(123213)
         if(drive) {
             console.log('drive',drive.id)
             this.addDrivesListeners(drive.id)
@@ -47,9 +45,9 @@ export class MainPanel extends Component {
     // state의 메세지를 컴포넌트에 보냄
     renderDrives = (drives) => 
         drives.length > 0 && drives.map(drive => (
-            // <Message key={message.timestamp} message={message} user={this.props.user} />
-            console.log(drive)
-    ))
+            <img src={drive.image} style={{width:'100px', height:'100px'}} />
+        )
+    )
     
 
     render() {

@@ -93,11 +93,12 @@ export default function UploadForm({drive, user}) {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item onClick={handleImageRefClick} >파일 업로드</Dropdown.Item>
+                        <Dropdown.Item onClick={handleImageRefClick} >이미지 업로드</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
 
-                <input accept="image/jpeg, image/png, image/gif, image/svg, .psd, .js, .html, .css, .scss, .zip, .java, .kotlin, .ppt, .hwp, xxl, .txt" type="file" style={{display:'none'}} ref={imageRef} onChange={handleUploadImage} />
+                {/* <input accept="image/jpeg, image/png, image/gif, image/svg, .psd, .js, .html, .css, .scss, .zip, .java, .kotlin, .ppt, .hwp, xxl, .txt" type="file" style={{display:'none'}} ref={imageRef} onChange={handleUploadImage} /> */}
+                <input accept="image/jpeg, image/png, image/gif" type="file" style={{display:'none'}} ref={imageRef} onChange={handleUploadImage} />
         </div>
     )
 }

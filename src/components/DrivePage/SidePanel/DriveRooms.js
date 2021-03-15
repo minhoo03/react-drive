@@ -7,6 +7,7 @@ import { AiOutlineSmile } from 'react-icons/ai'
 import { HiShare } from 'react-icons/hi'
 import { IoMdPeople } from 'react-icons/io'
 import { FaPlus, FaThinkPeaks } from 'react-icons/fa'
+import { BsPeopleCircle } from 'react-icons/bs'
 
 import { Button, Modal, Form } from 'react-bootstrap'
 
@@ -20,8 +21,7 @@ export class DriveRooms extends Component {
         myDriveRoomRef: firebase.database().ref('myDriveRoom'),
         DriveRooms: [],
         firstLoad: true,
-        activeDriveRoomId: '',
-        userUid: this.props.user.uid
+        activeDriveRoomId: '', 
     }
 
 
@@ -53,7 +53,7 @@ export class DriveRooms extends Component {
             // const firstDriveRoom = this.state.DriveRooms[0]
 
             const firstDriveRoom = {
-                id: this.state.userUid,
+                id: this.props.user.uid,
                 name: '내'
             }
             
@@ -64,6 +64,16 @@ export class DriveRooms extends Component {
             }    
         // 새로고침을 하지 않는 이상 firstDriveRoom이 반복되지 않는다.
         this.setState({firstLoad: false})
+    }
+
+    firstDriveRoom = () => {
+        const firstDriveRoom = {
+            id: this.props.user.uid,
+            name: '내'
+        }
+
+        this.props.dispatch(setCurrentDriveRoom(firstDriveRoom))
+        this.setState({activeDriveRoomId: this.props.user.uid})
     }
 
 
@@ -116,7 +126,7 @@ export class DriveRooms extends Component {
     renderDriveRooms = (DriveRooms) => {
         return DriveRooms.length > 0 &&
         DriveRooms.map(room => {
-            return <li key={room.id} onClick={() => this.changeDriveRoom(room)} style={{backgroundColor: room.id == this.state.activeDriveRoomId && '#ffffff45'}}><IoMdPeople /> {room.name} 드라이브</li>
+            return <li key={room.id} onClick={() => this.changeDriveRoom(room)} style={{backgroundColor: room.id == this.state.activeDriveRoomId && '#ffffff45', cursor: 'pointer'}}><IoMdPeople /> {room.name} 드라이브</li>
         })
     }
 
@@ -134,9 +144,21 @@ export class DriveRooms extends Component {
                 padding:'0 16px',
                 margin: '0 8px'
             }}>
+
+            {this.props.user &&
                 <div style={{
                     position:'relative', width:'100%',
-                    display:'flex', alignItems:'center'
+                    display:'flex', alignItems:'center', cursor: 'pointer',
+                    backgroundColor: this.state.activeDriveRoomId == this.props.user.uid && '#ffffff45'
+                }} onClick={this.firstDriveRoom}>
+
+                <BsPeopleCircle style={{marginRight: 3}} />
+                    {" "} 내 드라이브
+                </div>
+                }
+                <div style={{
+                    position:'relative', width:'100%',
+                    display:'flex', alignItems:'center',
                 }}>
 
                 <HiShare style={{marginRight: 3}} />
@@ -148,7 +170,7 @@ export class DriveRooms extends Component {
                     onClick={this.handleShow}
                     />
                 </div>
-
+            
 
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                     {this.renderDriveRooms(this.state.DriveRooms)}
@@ -182,7 +204,7 @@ export class DriveRooms extends Component {
                     </Modal.Footer>
                 </Modal>
             </div>
-            
+                
         )
     }
 }
